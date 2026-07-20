@@ -26,9 +26,39 @@ df = pd.read_csv("data/car_price_dataset_medium.csv")
 
 
 #============================================================================================================================================================
-# Initial Dataset Insepction
+# Initial Dataset Inspection
 #============================================================================================================================================================
 print(df.head())
 print(df.shape)
 print(df.columns)
 print(df.info())
+print(df.dtypes)
+
+#============================================================================================================================================================
+# Summary Statistics
+#============================================================================================================================================================
+# Summary statistics for categorical columns
+print(df.describe(include="str"))
+
+# Unique values and frequency counts
+for column in df.select_dtypes(include="str").columns:
+    print(f"\n{'-' * 50}")
+    print(f"{column}")
+    print(f"{'-' * 50}")
+    print(df[column].value_counts())
+
+# Looking for missing values
+print(df.isnull().sum())
+
+# Looking for duplicate Records
+print(df.duplicated().sum())
+
+
+
+
+
+
+
+
+
+
