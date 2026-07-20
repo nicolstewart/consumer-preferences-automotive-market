@@ -105,6 +105,18 @@ df_clean["Mileage_Category"] = pd.cut(
     ]
 )
 
+# Categorizing based on age
+df_clean["Age_Category"] = pd.cut(
+    df_clean["Vehicle_Age"],
+    bins=[0, 3, 7, 12, 20],
+    labels=[
+        "New",
+        "Recent",
+        "Older",
+        "Very Old"
+    ]
+)
+
 # Inspecting new dataset
 print(df_clean.head())
 print(df_clean.info())
@@ -115,3 +127,159 @@ df_clean.to_csv(
     "data/used_car_dataset_clean.csv",
     index=False
 )
+
+#============================================================================================================================================================
+# Exploratory Data Analysis
+#============================================================================================================================================================
+# Brand Distribution
+# Which manufacturers have the strongest representation in this market?
+plt.figure(figsize=(10, 6))
+
+sns.countplot(
+    data=df_clean,
+    x="Brand",
+    order=df_clean["Brand"].value_counts().index
+)
+
+plt.title(
+    "Distribution of Vehicles by Brand",
+    fontsize=14
+)
+plt.xlabel("Brand")
+plt.ylabel("Number of Vehicles")
+plt.xticks(rotation=45)
+plt.tight_layout()
+plt.savefig(
+    "images/brand_distribution.png",
+    dpi=300
+)
+plt.show()
+
+# Fuel Type Distribution
+# What fuel types dominate consumer choices?
+plt.figure(figsize=(10, 6))
+
+sns.countplot(
+    data=df_clean,
+    x="Fuel_Type"
+)
+
+plt.title(
+    "Distribution of Vehicles by Fuel Type",
+    fontsize=14
+)
+plt.xlabel("Fuel Type")
+plt.ylabel("Number of Vehicles")
+plt.tight_layout()
+plt.savefig(
+    "images/fuel_type_distribution.png",
+    dpi=300
+)
+plt.show()
+
+# Transmission Preference
+# Is the market shifting toward convenience-oriented vehicles?
+plt.figure(figsize=(10, 6))
+
+sns.countplot(
+    data=df_clean,
+    x="Transmission"
+)
+plt.title(
+    "Manual vs Automatic Transmission Distribution",
+    fontsize=14
+)
+plt.xlabel("Transmission Type")
+plt.ylabel("Number of Vehicles")
+plt.tight_layout()
+plt.savefig(
+    "images/transmission_distribution.png",
+    dpi=300
+)
+plt.show()
+
+#============================================================================================================================================================
+# Pricing Analysis
+# Price Distribution
+# What does the automative pricing landscape look like?
+plt.figure(figsize=(10, 6))
+
+sns.histplot(
+    data=df_clean,
+    x="Price_USD",
+    bins=30,
+    kde=True,
+)
+
+plt.title(
+    "Distribution of Vehicle Prices",
+    fontsize=14
+)
+plt.xlabel("Price (USD)")
+plt.ylabel("Number of Vehicles")
+plt.tight_layout()
+plt.savefig(
+    "images/price_distribution.png",
+    dpi=300)
+plt.show()
+
+# Average Price by Brand
+# Which brands command the highest price premiums?
+brand_prices = (df_clean
+                .groupby("Brand")["Price_USD"]
+                .mean()
+                .sort_values()
+                )
+plt.figure(figsize=(10, 6))
+
+brand_prices.plot(
+    kind="barh"
+)
+
+plt.title(
+    "Average Vehicle Price by Brand",
+    fontsize=14
+)
+plt.xlabel("Average Price (USD)")
+plt.ylabel("Brand")
+plt.tight_layout()
+plt.savefig(
+    "images/average_price_brand.png",
+    dpi=300
+)
+plt.show()
+
+# Price vs Vehicle Age
+# How strongly does vehicle age influence market value?
+plt.figure(figsize=(10, 6))
+
+sns.scatterplot(
+    data=df_clean,
+    x="Vehicle_Age",
+    y="Price_USD",
+)
+
+plt.title(
+    "Relationship Between Vehicle Age and Price",
+    fontsize=14
+)
+plt.xlabel("Vehicle Age")
+plt.ylabel("Price USD")
+plt.tight_layout()
+plt.savefig(
+    "images/age_vs_price.png",
+    dpi=300
+)
+plt.show()
+
+
+
+
+
+
+
+
+
+
+
+
