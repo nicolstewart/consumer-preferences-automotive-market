@@ -1,5 +1,5 @@
 """
-Consumer Preferences in the Automative Market
+Consumer Preferences in the Automotive Market
 
 Author: Nicol Stewart
 
@@ -7,7 +7,7 @@ Project:
 An exploratory data analysis investigating the relationship between vehicle characteristics, market pricing, and consumer preferences in the used automotive market.
 
 Purpose:
-To identify the vehicle characteristics associated with premium pricing and interpret the findings from a consumer behavior and marketing perspective.
+To identify the vehicle characteristics associated with premium pricing and interpret the findings from a consumer behaviour and marketing perspective.
 """
 
 #============================================================================================================================================================
@@ -18,7 +18,7 @@ import numpy as np
 import seaborn as sns
 import matplotlib.pyplot as plt
 
-# Plot Styling
+# Apply a consistent visual style across all figures
 sns.set_style("whitegrid")
 
 # Load dataset
@@ -62,23 +62,27 @@ print("-" * 60)
 print(df_clean.describe())
 
 #============================================================================================================================================================
-# Feature Engineering
+# Feature Engineering:
 #============================================================================================================================================================
-# Vehicle age
+# Get vehicle age to analyse depreciation
 
-CURRENT_YEAR = 2026
+CURRENT_YEAR = pd.Timestamp.today().year
 df_clean["Vehicle_Age"] = CURRENT_YEAR - df_clean["Model_Year"]
 print("-" * 60)
 print("Vehicle Age:")
 print(df_clean[["Model_Year", "Vehicle_Age"]].head())
 
-# Price per horsepower
+# Calculate a value-for-money metric
 df_clean["Price_per_bhp"] = (
     df_clean["Price_USD"] /
     df_clean["Max_Power_bhp"]
 )
 print("Price per Horsepower:")
-print(df_clean[["Price_USD", "Max_Power_bhp"]].head())
+print(df_clean[[
+    "Price_USD",
+    "Max_Power_bhp"
+    "Price_per_bhp"
+]].head())
 
 # Classifying into two segments (premium and mass market)
 premium_brands = [
@@ -122,14 +126,14 @@ print(df_clean.head())
 print(df_clean.info())
 
 
-# Saving clean dataset
+# Save clean dataset
 df_clean.to_csv(
     "data/used_car_dataset_clean.csv",
     index=False
 )
 
 #============================================================================================================================================================
-# Exploratory Data Analysis
+# Exploratory Data Analysis:
 #============================================================================================================================================================
 # Brand Distribution
 # Which manufacturers have the strongest representation in this market?
