@@ -11,7 +11,6 @@ Rather than focusing solely on technical analysis, this project interprets the f
 ## Business Problem
 
 The used automotive market is highly competitive, with consumers evaluating vehicles based on numerous characteristics such as brand, age, mileage, transmission type, fuel type, and engine performance. Understanding which characteristics are associated with higher market prices can help manufacturers, dealerships, and marketers better position their products, optimise pricing strategies, and respond to evolving consumer preferences.
-
 This project analyses used vehicle data to identify pricing patterns and interpret what these relationships may suggest about consumer behaviour within the automotive market.
 **Data was sourced from Kaggle.** 
 ---
